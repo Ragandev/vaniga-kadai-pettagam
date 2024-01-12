@@ -1,5 +1,5 @@
-const mangoose = require("mangoose");
-const Schema = mangoose.Schema();
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema();
 
 const addressSchema = new Schema({
   address: {
@@ -31,6 +31,9 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
+    lowercase: true,
+    min:5,
+    max:20
   },
   dob: {
     type: Date,
@@ -70,4 +73,4 @@ const userSchema = new Schema({
   }
 });
 
-module.exports = mangoose.model("users", userSchema);
+module.exports = mongoose.model("users", userSchema);

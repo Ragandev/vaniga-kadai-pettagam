@@ -1,17 +1,17 @@
-const mangoose = require("mangoose");
-const Schema = mangoose.Schema();
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema();
 
 const wishlistSchema = new Schema({
   userid: {
-    type: mangoose.Types.ObjectID,
+    type: mongoose.Types.ObjectID,
     required: true
   },
   productid: {
-    type: mangoose.Types.ObjectID,
+    type: mongoose.Types.ObjectID,
     required: true
   }
 });
 
-module.exports = mangoose.model("wishlist", wishlistSchema);
+module.exports = mongoose.model("wishlist", wishlistSchema);
 
 

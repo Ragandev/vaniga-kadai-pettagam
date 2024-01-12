@@ -1,5 +1,5 @@
-const mangoose = require("mangoose");
-const Schema = mangoose.Schema();
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema();
 
 const addressSchema = new Schema({
     address: {
@@ -67,6 +67,6 @@ const generalsettingSchema = new Schema({
   bankdetails: bankSchema
 });
 
-module.exports = mangoose.model("generalsetting", generalsettingSchema);
+module.exports = mongoose.model("generalsetting", generalsettingSchema);
 
 

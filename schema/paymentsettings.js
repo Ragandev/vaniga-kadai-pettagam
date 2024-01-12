@@ -1,4 +1,4 @@
-const mangoose = require("mangoose");
+const mongoose = require("mongoose");
 const Schema = mangoose.Schema();
 
 const paymentsettingSchema = new Schema({
@@ -12,5 +12,5 @@ const paymentsettingSchema = new Schema({
   }
 });
 
-module.exports = mangoose.model("paymentsetting", paymentsettingSchema);
+module.exports = mongoose.model("paymentsetting", paymentsettingSchema);
 

@@ -1,5 +1,5 @@
-const mangoose = require("mangoose");
-const Schema = mangoose.Schema();
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema();
 
 const bannerSchema = new Schema({
   img: {
@@ -12,6 +12,6 @@ const bannerSchema = new Schema({
   }
 });
 
-module.exports = mangoose.model("banner", bannerSchema);
+module.exports = mongoose.model("banner", bannerSchema);
 
 

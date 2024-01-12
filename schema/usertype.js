@@ -1,5 +1,5 @@
-const mangoose = require("mangoose");
-const Schema = mangoose.Schema();
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema();
 
 const usertypeSchema = new Schema({
   name: {
@@ -8,4 +8,4 @@ const usertypeSchema = new Schema({
   }
 });
 
-module.exports = mangoose.model("usertype", usertypeSchema);
+module.exports = mongoose.model("usertype", usertypeSchema);

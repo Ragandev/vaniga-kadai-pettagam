@@ -1,5 +1,5 @@
-const mangoose = require("mangoose");
-const Schema = mangoose.Schema();
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema();
 
 const itemsettingSchema = new Schema({
   manufacturedate: {
@@ -29,5 +29,5 @@ const itemsettingSchema = new Schema({
 
 });
 
-module.exports = mangoose.model("itemsetting", itemsettingSchema);
+module.exports = mongoose.model("itemsetting", itemsettingSchema);
 
