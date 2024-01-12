@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema();
 
-const addressSchema = new Schema({
+const addressSchema = new mongoose.Schema({
   address: {
     type: String,
   },
@@ -19,7 +18,7 @@ const addressSchema = new Schema({
   },
 });
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -50,27 +49,31 @@ const userSchema = new Schema({
   billingaddress: addressSchema,
   shippingaddress: addressSchema,
   usertype: {
-    type: mangoose.Types.ObjectID,
+    type: String,
     required: true,
   },
-  balance:{
-    type: Number
+  balance: {
+    type: Number,
   },
   createdat: {
     type: Date,
-    default: ()=>{Date.now}
+    default: () => {
+      Date.now;
+    },
   },
   modifiedat: {
     type: Date,
-    default: ()=>{Date.now}
+    default: () => {
+      Date.now;
+    },
   },
   lastlogin: {
     type: Date,
   },
   status: {
     type: Boolean,
-    default: 1
-  }
+    default: 1,
+  },
 });
 
 module.exports = mongoose.model("users", userSchema);
