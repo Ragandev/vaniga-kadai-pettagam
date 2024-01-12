@@ -1,13 +1,13 @@
-const mangoose = require("mangoose");
-const Schema = mangoose.Schema();
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema();
 
 const pricingSchema = new Schema({
   itemid: {
-    type: mangoose.Types.ObjectId,
+    type: mongoose.Types.ObjectId,
     required: true
   },
   usertype: {
-    type: mangoose.Types.ObjectId,
+    type: mongoose.Types.ObjectId,
     required: true
   },
   pricepercentage: {
@@ -16,4 +16,4 @@ const pricingSchema = new Schema({
   }
 });
 
-module.exports = mangoose.model("pricing", pricingSchema);
+module.exports = mongoose.model("pricing", pricingSchema);

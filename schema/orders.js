@@ -1,9 +1,9 @@
-const mangoose = require("mangoose");
-const Schema = mangoose.Schema();
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema();
 
 const orderSchema = new Schema({
   itemid: {
-    type: mangoose.Types.ObjectId,
+    type: mongoose.Types.ObjectId,
     required: true
   },
   orderid: {
@@ -11,7 +11,7 @@ const orderSchema = new Schema({
     default: ()=>{Date.now}
   },
   userid: {
-    type: mangoose.Types.ObjectId,
+    type: mongoose.Types.ObjectId,
     required: true
   },
   qty: {
@@ -45,4 +45,4 @@ const orderSchema = new Schema({
   }
 });
 
-module.exports = mangoose.model("orders", orderSchema);
+module.exports = mongoose.model("orders", orderSchema);

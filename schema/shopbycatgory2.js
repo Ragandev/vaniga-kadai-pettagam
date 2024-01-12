@@ -1,5 +1,5 @@
-const mangoose = require("mangoose");
-const Schema = mangoose.Schema();
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema();
 
 const shopbycategorytwoSchema = new Schema({
   img: {
@@ -7,10 +7,10 @@ const shopbycategorytwoSchema = new Schema({
     required: true
   },
   category: {
-    type: mangoose.Types.ObjectId
+    type: mongoose.Types.ObjectId
   }
 });
 
-module.exports = mangoose.model("shopbycategory2", shopbycategorytwoSchema);
+module.exports = mongoose.model("shopbycategory2", shopbycategorytwoSchema);
 
 

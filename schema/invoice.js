@@ -1,4 +1,4 @@
-const mangoose = require("mangoose");
+const mongoose = require("mongoose");
 const Schema = mangoose.Schema();
 
 const invoiceSchema = new Schema({
@@ -12,13 +12,13 @@ const invoiceSchema = new Schema({
     required: true
   },
   orderid: {
-    type: mangoose.Types.ObjectID
+    type: mongoose.Types.ObjectID
   },
   transactionid: {
     type: String
   }
 });
 
-module.exports = mangoose.model("invoice", invoiceSchema);
+module.exports = mongoose.model("invoice", invoiceSchema);
 
 

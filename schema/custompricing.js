@@ -1,11 +1,11 @@
-const mangoose = require("mangoose");
-const Schema = mangoose.Schema();
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema();
 
 const usertypeSchema = new Schema({
   name: {
-    type: mangoose.Types.ObjectId,
+    type: mongoose.Types.ObjectId,
     required: true
   }
 });
 
-module.exports = mangoose.model("usertype", usertypeSchema);
+module.exports = mongoose.model("usertype", usertypeSchema);
