@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema();
 
-const offerSchema = new Schema({
+const couponSchema = new Schema({
   usertype: {
     type: [mongoose.Types.ObjectId],
     required: true,
   },
-  offerfor: {
+  couponfor: {
     type: mongoose.Types.ObjectId,
     required: true,
   },
@@ -18,7 +18,7 @@ const offerSchema = new Schema({
     type: Date,
     required: true,
   },
-  offerpercentage: {
+  couponpercentage: {
     type: Number,
     required: true,
   },
@@ -28,4 +28,4 @@ const offerSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("offers", offerSchema);
+module.exports = mongoose.model("coupos", couponSchema);
