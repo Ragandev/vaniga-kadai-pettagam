@@ -4,54 +4,85 @@ const dbConnect = require("../config/db");
 const Users = require("../schema/Users");
 dbConnect();
 
-router.get("/", (req, res) => {
-  const getUser = async () => {
-    const data = await Users.find({ name: "Keerthana" });
-    console.log(data);
-    res.json(data);
-  };
-  getUser()
-    .then(() => {
-      console.log(data);
-      res.json(data);
-    })
-    .catch((err) => {
-      console.log(err.message);
-      res.end();
-    });
+const errMessage = "Something went wrong please try again later";
+
+//! Get All User Data
+router.get("/", async (req, res) => {
+  try {
+    const data = await Users.find();
+    res.status(200).json(data);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ message: errMessage }).end();
+  }
 });
 
-router.post("/", (req, res) => {
-  const userInsert = async () => {
-    await Users.create({
-      name: "Keerthana",
-      username: "keerthi",
-      password: "K1402",
-      dob: Date.now(),
-      email: "keerthi@gmail.com",
-      mobile: 9874125638,
-      usertype: "gsadjsha00454875400",
-      balance: 40,
-      lastlogin: Date.now(),
-    });
-  };
-  userInsert()
-    .then(() => {
-      console.log("Inserted Successfully");
-      res.end();
-    })
-    .catch((err) => {
-      console.log(err.message);
-      res.end();
-    });
+//! Get Single User data
+router.get("/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await Users.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(user);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ message: errMessage }).end();
+  }
 });
 
-router.put("/", (req, res) => {
-  res.send("Hello Put");
+//! Add  User data
+router.post("/", async (req, res) => {
+  try {
+    await Users.create(req.body);
+    res.json({ message: "User Created Successfully" });
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ message: errMessage }).end();
+  }
 });
 
-router.delete("/", (req, res) => {
-  res.send("Hello Delete");
+//! Edit User data
+router.put("/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const updateData = req.body;
+
+    const updatedUser = await Users.findByIdAndUpdate(userId, updateData, {
+      new: true,
+    });
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ message: "User Updated Successfully" });
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ message: errMessage }).end();
+  }
+});
+
+//! Delete User
+router.delete("/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await Users.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    await user.deleteOne();
+
+    res.json({ message: "User deleted successfully" });
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ message: errMessage }).end();
+  }
 });
 
 module.exports = router;

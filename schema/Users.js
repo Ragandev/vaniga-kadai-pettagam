@@ -31,11 +31,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     lowercase: true,
-    min:5,
-    max:20
+    min: 5,
+    max: 20,
   },
   dob: {
-    type: Date,
+    type: String,
     required: true,
   },
   email: {
@@ -57,15 +57,12 @@ const userSchema = new mongoose.Schema({
   },
   createdat: {
     type: Date,
-    default: () => {
-      Date.now;
-    },
+    default: Date.now,
+    immutable: true,
   },
   modifiedat: {
     type: Date,
-    default: () => {
-      Date.now;
-    },
+    default: Date.now,
   },
   lastlogin: {
     type: Date,
