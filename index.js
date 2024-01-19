@@ -6,6 +6,7 @@ require("dotenv").config();
 
 // Routes
 const userRoute = require("./Routes/User");
+const usertypeRoute = require("./Routes/Usertype");
 const categoryRoute = require("./Routes/Categories");
 const subCategoriesRoute = require("./Routes/SubCategories");
 const brandRoute = require("./Routes/Brand");
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // User Code
 app.use("/api/user", userRoute);
+app.use("/api/usertype", usertypeRoute);
 app.use("/api/category", categoryRoute);
 app.use("/api/subcategory", subCategoriesRoute);
 app.use("/api/brand", brandRoute);
