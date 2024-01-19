@@ -6,6 +6,7 @@ require("dotenv").config();
 
 // Routes
 const userRoute = require("./Routes/User");
+const categoryRoute = require("./Routes/Categories");
 const subCategoriesRoute = require("./Routes/SubCategories");
 
 const app = express();
@@ -17,7 +18,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // User Code
 app.use("/api/user", userRoute);
+app.use("/api/category", categoryRoute);
 app.use("/api/subcategory", subCategoriesRoute);
+
 
 app.get("/", (req, res) => {
   res.status(200).send("<h1>HELLO API</h1>");
