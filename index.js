@@ -10,6 +10,10 @@ const usertypeRoute = require("./Routes/Usertype");
 const categoryRoute = require("./Routes/Categories");
 const subCategoriesRoute = require("./Routes/SubCategories");
 const brandRoute = require("./Routes/Brand");
+const itemRoute = require("./Routes/Item");
+const taxRoute = require("./Routes/Tax");
+const orderRoute = require("./Routes/Order");
+const priceRoute = require("./Routes/Pricing");
 
 const app = express();
 
@@ -24,6 +28,10 @@ app.use("/api/usertype", usertypeRoute);
 app.use("/api/category", categoryRoute);
 app.use("/api/subcategory", subCategoriesRoute);
 app.use("/api/brand", brandRoute);
+app.use("/api/item", itemRoute);
+app.use("/api/tax", taxRoute);
+app.use("/api/order", orderRoute);
+app.use("/api/price", priceRoute);
 
 
 app.get("/", (req, res) => {
