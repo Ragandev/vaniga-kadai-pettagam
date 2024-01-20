@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const dbConnect = require("../config/db");
+const mail = require("../modules/mailsender");
 const Users = require("../schema/Users");
 dbConnect();
 
@@ -38,10 +39,12 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     await Users.create(req.body);
+    mail(req.body.email, "Test", "<h1>Registered Successfully</h1>").catch(console.error);
     res.json({ message: "User Created Successfully" });
   } catch (err) {
     console.log(err.message);
     res.status(500).json({ message: errMessage }).end();
+
   }
 });
 

@@ -8,7 +8,6 @@ require("dotenv").config();
 const userRoute = require("./Routes/User");
 const usertypeRoute = require("./Routes/Usertype");
 const categoryRoute = require("./Routes/Categories");
-const subCategoriesRoute = require("./Routes/SubCategories");
 const brandRoute = require("./Routes/Brand");
 
 const app = express();
@@ -22,9 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/api/user", userRoute);
 app.use("/api/usertype", usertypeRoute);
 app.use("/api/category", categoryRoute);
-app.use("/api/subcategory", subCategoriesRoute);
 app.use("/api/brand", brandRoute);
-
 
 app.get("/", (req, res) => {
   res.status(200).send("<h1>HELLO API</h1>");
