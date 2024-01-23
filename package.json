@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -7,7 +8,7 @@
     "mongoose": "^8.0.4",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.8",
-    "nodemailer-smtp-transport": "^2.7.4",
+    "otp-generator": "^4.0.1",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
