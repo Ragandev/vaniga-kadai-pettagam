@@ -26,11 +26,11 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
+    unique: true
   },
   password: {
     type: String,
     required: true,
-    lowercase: true,
     min: 5,
     max: 20,
   },
@@ -41,6 +41,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true
   },
   mobile: {
     type: Number,
@@ -51,6 +52,7 @@ const userSchema = new mongoose.Schema({
   usertype: {
     type: String,
     required: true,
+    ref: "usertypes"
   },
   balance: {
     type: Number,

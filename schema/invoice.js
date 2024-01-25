@@ -1,18 +1,18 @@
 const mongoose = require("mongoose");
-const Schema = mangoose.Schema();
 
-const invoiceSchema = new Schema({
+const invoiceSchema = new mongoose.Schema({
   invoicenumber: {
     type: Number,
     required: true
   },
   date: {
     type: Date,
-    default:()=>{Date.now},
+    default:Date.now,
     required: true
   },
   orderid: {
-    type: mongoose.Types.ObjectID
+    type: mongoose.Schema.Types.ObjectID,
+    ref: "orders"
   },
   transactionid: {
     type: String

@@ -1,18 +1,19 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema();
 
-const orderSchema = new Schema({
+const orderSchema = new mongoose.Schema({
   itemid: {
-    type: mongoose.Types.ObjectId,
-    required: true
+    type: [mongoose.Schema.Types.ObjectId],
+    required: true,
+    ref: "items"
   },
   orderid: {
     type: String,
-    default: ()=>{Date.now}
+    default: Date.now
   },
   userid: {
-    type: mongoose.Types.ObjectId,
-    required: true
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "users"
   },
   qty: {
     type: Number,
@@ -32,12 +33,11 @@ const orderSchema = new Schema({
   },
   paymentstatus: {
     type: Boolean,
-    default: 1,
-    required: true
+    default: 0
   },
   orderdate: {
     type: Date,
-    default: ()=>{Date.now},
+    default: Date.now,
     required: true
   },
   deliverydate: {

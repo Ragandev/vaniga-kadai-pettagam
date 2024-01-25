@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema();
 
-const itemSchema = new Schema({
+const itemSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -25,33 +24,32 @@ const itemSchema = new Schema({
     required: true,
   },
   tax: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
+    ref: "taxes",
   },
   createdat: {
     type: Date,
-    default: () => {
-      Date.now;
-    },
+    default: Date.now,
   },
   createdby: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
   },
   modifiedby: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
   },
   modifiedat: {
     type: Date,
-    default: () => {
-      Date.now;
-    },
+    default: Date.now,
   },
   img: {
     type: [String],
     required: true,
   },
   stockqty: {
-    type: number,
+    type: Number,
     required: true,
   },
   serialno: {
