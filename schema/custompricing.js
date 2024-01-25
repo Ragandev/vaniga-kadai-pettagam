@@ -1,11 +1,19 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema();
-
-const usertypeSchema = new Schema({
-  name: {
+const custompricingSchema = new mongoose.Schema({
+  userid: {
     type: mongoose.Types.ObjectId,
+    required: true,
+    ref: "users"
+  },
+  itemid: {
+    type: mongoose.Types.ObjectId,
+    required: true,
+    ref: "items"
+  },
+  pricepercentage: {
+    type: Number,
     required: true
   }
 });
 
-module.exports = mongoose.model("usertype", usertypeSchema);
+module.exports = mongoose.model("customprice", custompricingSchema);

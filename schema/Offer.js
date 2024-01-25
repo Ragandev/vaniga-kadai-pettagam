@@ -1,21 +1,42 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema();
-
-const offerSchema = new Schema({
+const offerSchema = new mongoose.Schema({
   usertype: {
-    type: [mongoose.Types.ObjectId],
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
+    ref: "usertypes",
   },
   offerfor: {
-    type: mongoose.Types.ObjectId,
+    type: String,
+    enum: ["Category", "Brand", "Item"],
     required: true,
   },
+  offeritems: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"items",
+    required: ()=>{
+      return this.offerfor === "Item"
+    },
+  },
+  offerbrand: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"brands",
+    required: ()=>{
+      return this.offerfor === "Brand"
+    },
+  },
+  offercategory: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"categories",
+    required: ()=>{
+      return this.offerfor === "Category"
+    },
+  },
   fromdate: {
-    type: Date,
+    type: String,
     required: true,
   },
   todate: {
-    type: Date,
+    type: String,
     required: true,
   },
   offerpercentage: {

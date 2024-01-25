@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
   itemid: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: [mongoose.Schema.Types.ObjectId],
     required: true,
     ref: "items"
   },
@@ -33,8 +33,7 @@ const orderSchema = new mongoose.Schema({
   },
   paymentstatus: {
     type: Boolean,
-    default: 1,
-    required: true
+    default: 0
   },
   orderdate: {
     type: Date,

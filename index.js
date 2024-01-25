@@ -8,12 +8,15 @@ require("dotenv").config();
 const userRoute = require("./Routes/User");
 const usertypeRoute = require("./Routes/Usertype");
 const categoryRoute = require("./Routes/Categories");
-const subCategoriesRoute = require("./Routes/SubCategories");
 const brandRoute = require("./Routes/Brand");
 const itemRoute = require("./Routes/Item");
 const taxRoute = require("./Routes/Tax");
 const orderRoute = require("./Routes/Order");
 const priceRoute = require("./Routes/Pricing");
+const invoiceRoute = require("./Routes/Invoice");
+const offerRoute = require("./Routes/Offer");
+const couponRoute = require("./Routes/Coupon");
+const generalsettingRoute = require("./Routes/Generalsetting");
 
 const app = express();
 
@@ -26,12 +29,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/api/user", userRoute);
 app.use("/api/usertype", usertypeRoute);
 app.use("/api/category", categoryRoute);
-app.use("/api/subcategory", subCategoriesRoute);
 app.use("/api/brand", brandRoute);
 app.use("/api/item", itemRoute);
 app.use("/api/tax", taxRoute);
 app.use("/api/order", orderRoute);
 app.use("/api/price", priceRoute);
+app.use("/api/invoice", invoiceRoute);
+app.use("/api/offer", offerRoute);
+app.use("/api/coupon", couponRoute);
+app.use("/api/generalsetting", generalsettingRoute);
 
 
 app.get("/", (req, res) => {

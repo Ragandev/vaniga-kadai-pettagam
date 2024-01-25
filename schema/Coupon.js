@@ -1,21 +1,42 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema();
-
-const couponSchema = new Schema({
+const couponSchema = new mongoose.Schema({
   usertype: {
-    type: [mongoose.Types.ObjectId],
+    type: [mongoose.Schema.Types.ObjectId],
     required: true,
+    ref: "usertypes",
   },
   couponfor: {
-    type: mongoose.Types.ObjectId,
+    type: String,
+    enum: ["Category", "Brand", "Item"],
     required: true,
   },
+  couponitems: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"items",
+    required: ()=>{
+      return this.couponfor === "Item"
+    },
+  },
+  couponbrand: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"brands",
+    required: ()=>{
+      return this.couponfor === "Brand"
+    },
+  },
+  couponcategory: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"categories",
+    required: ()=>{
+      return this.couponfor === "Category"
+    },
+  },
   fromdate: {
-    type: Date,
+    type: String,
     required: true,
   },
   todate: {
-    type: Date,
+    type: String,
     required: true,
   },
   couponpercentage: {
@@ -28,4 +49,4 @@ const couponSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("coupos", couponSchema);
+module.exports = mongoose.model("coupon", couponSchema);

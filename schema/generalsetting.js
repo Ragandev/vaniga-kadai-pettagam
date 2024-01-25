@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema();
-
-const addressSchema = new Schema({
+const addressSchema = new mongoose.Schema({
     address: {
       type: String,
     },
@@ -19,37 +17,29 @@ const addressSchema = new Schema({
     },
   });
 
-const bankSchema = new Schema({
+const bankSchema = new mongoose.Schema({
     bankname: {
       type: String,
     },
     accountnumber: {
       type: Number,
     },
-    beneficiaryname: {
+    accountholdername: {
       type: String,
     },
-    ifsccode: {
+    branchname: {
       type: String,
-    },
-    state: {
-      type: String,
-    },
-    country: {
-      type: String,
-    },
-    pincode: {
-      type: Number,
     },
   });
 
-const generalsettingSchema = new Schema({
+const generalsettingSchema = new mongoose.Schema({
   companyname: {
     type: String,
     required: true
   },
   logo: {
-    type: String
+    type: String,
+    required: true
   },
   address:addressSchema,
   phonenumber:{
