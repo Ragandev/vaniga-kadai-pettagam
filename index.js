@@ -17,6 +17,9 @@ const invoiceRoute = require("./Routes/Invoice");
 const offerRoute = require("./Routes/Offer");
 const couponRoute = require("./Routes/Coupon");
 const generalsettingRoute = require("./Routes/Generalsetting");
+const custompriceRoute = require("./Routes/Custompricing");
+const paymentsettingRoute = require("./Routes/Paymentsetting");
+const itemsettingRoute = require("./Routes/Itemsetting");
 
 const app = express();
 
@@ -38,6 +41,9 @@ app.use("/api/invoice", invoiceRoute);
 app.use("/api/offer", offerRoute);
 app.use("/api/coupon", couponRoute);
 app.use("/api/generalsetting", generalsettingRoute);
+app.use("/api/customprice", custompriceRoute);
+app.use("/api/paymentsetting", paymentsettingRoute);
+app.use("/api/itemsetting", itemsettingRoute);
 
 app.get("/", (req, res) => {
   res.status(200).send("<h1>HELLO API</h1>");

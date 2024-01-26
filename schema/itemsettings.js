@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema();
-
-const itemsettingSchema = new Schema({
+const itemsettingSchema = new mongoose.Schema({
   manufacturedate: {
     type: Boolean,
     default: 0
