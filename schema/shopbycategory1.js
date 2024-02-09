@@ -1,13 +1,12 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema();
 
-const shopbycategoryoneSchema = new Schema({
+const shopbycategoryoneSchema = new mongoose.Schema({
   img: {
     type: String,
     required: true,
   },
   category: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
   },
   url: {
     type: String,
