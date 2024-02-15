@@ -18,6 +18,8 @@ const invoiceRoute = require("./Routes/Invoice");
 const offerRoute = require("./Routes/Offer");
 const couponRoute = require("./Routes/Coupon");
 const generalsettingRoute = require("./Routes/Generalsetting");
+const mailsettingRoute = require("./Routes/Mailsetting");
+const ticketRoute = require("./Routes/Ticket");
 
 const app = express();
 
@@ -40,6 +42,8 @@ app.use("/api/invoice", invoiceRoute);
 app.use("/api/offer", offerRoute);
 app.use("/api/coupon", couponRoute);
 app.use("/api/generalsetting", generalsettingRoute);
+app.use("/api/mailsetting", mailsettingRoute);
+app.use("/api/ticket", ticketRoute);
 
 app.get("/", (req, res) => {
   res.status(200).send("<h1>HELLO API</h1>");
