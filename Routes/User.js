@@ -3,8 +3,9 @@ const router = express.Router();
 const dbConnect = require("../config/db");
 const mail = require("../modules/mailsender");
 const Users = require("../schema/Users");
-const Otp = require("../schema/Otp");
+const OTP = require("../schema/Otp");
 const otpGenerator = require("otp-generator");
+const generateOtp = require("../modules/generateOtp");
 const bcrypt = require("bcrypt");
 dbConnect();
 
@@ -38,47 +39,33 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-//! OTP Send
-router.post("/otp", async (req, res) => {
-  try {
-    const email = req.body.email;
-
-    //! Check if user is already present
-    const checkUserPresent = await Users.findOne({ email: email });
-    if (checkUserPresent) {
-      return res.status(401).json({
-        message: "This Email is Already Registered",
-      });
-    }
-
-    //! Generate Otp
-    let otp = otpGenerator.generate(6, {
-      upperCaseAlphabets: false,
-      lowerCaseAlphabets: false,
-      specialChars: false,
-    });
-
-    //! Check if OTP is already present
-    let result = await OTP.findOne({ otp: otp });
-    // if(result)
-
-    mail(req.body.email, "Test", "<h1>Registered Successfully</h1>").catch(
-      console.error
-    );
-    res.json({ message: "User Created Successfully" });
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).json({ message: errMessage }).end();
-  }
-});
 //! Signup
 router.post("/singnup", async (req, res) => {
   try {
     await Users.create(req.body);
-    mail(req.body.email, "Test", "<h1>Registered Successfully</h1>").catch(
+    let userMsg = `<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+    <table style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px;">
+      <tr>
+        <td>
+          <h2 style="color: #333;">Registration Confirmation</h2>
+          <p>Dear ${req.body.name},</p>
+          <p>Congratulations! You have successfully registered. We are thrilled to have you on board.</p>
+          <p>Your account has been created, and you can now start exploring our platform.</p>
+          <ul>
+            <li>Explore our services and products.</li>
+            <li>Customize your profile settings.</li>
+            <li>Connect with other users and start engaging.</li>
+          </ul>
+          <p>If you have any questions or need assistance, feel free to contact us.</p>
+          <p>Thank you and welcome aboard!</p>
+        </td>
+      </tr>
+    </table>
+  </body>`;
+    mail(req.body.email, "Registration Confirmation", userMsg).catch(
       console.error
     );
-    res.json({ message: "User Created Successfully" });
+    res.json({ message: "User Registered Successfully" });
   } catch (err) {
     console.log(err.message);
     res.status(500).json({ message: errMessage }).end();
