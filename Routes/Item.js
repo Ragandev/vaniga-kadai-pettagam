@@ -88,7 +88,7 @@ router.delete("/:id", async (req, res) => {
 
 //! Import Items
 router.post("/import", upload.single("file"), (req, res) => {
-  importItem(req.file.filename)
+  importItem(req.file.filename);
 });
 
 module.exports = router;
