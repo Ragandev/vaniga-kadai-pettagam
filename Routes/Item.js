@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const dbConnect = require("../config/db");
 const Items = require("../schema/Items");
+const importItem = require("../modules/import");
+const upload = require("../modules/upload");
 dbConnect();
 const errMessage = "Something went wrong please try again later";
 
@@ -82,6 +84,11 @@ router.delete("/:id", async (req, res) => {
     console.log(err.message);
     res.status(500).json({ message: errMessage }).end();
   }
+});
+
+//! Import Items
+router.post("/import", upload.single("file"), (req, res) => {
+  console.log(req)
 });
 
 module.exports = router;
