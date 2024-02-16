@@ -5,28 +5,29 @@ const path = require("path");
 const Items = require("../schema/Items");
 
 const importItems = async (fileName) => {
-  const csvStream = fs.createReadStream(
-    path.join(__dirname + `/../uploads/${fileName}`)
-  );
-  csv
-    .parseStream(csvStream, {
-      headers: true,
-    })
-    .on("data", (rows) => {
-      rows.forEach((row) => {
+  try {
+    const csvStream = fs.createReadStream(
+      path.join(__dirname + `/../uploads/${fileName}`)
+    );
+
+    csv.parseStream(csvStream, { headers: true }).on("data", async (rows) => {
+      for (const row of rows) {
         try {
-          //! Check Item is Exist
-          let item = Items.findOne({ name: row.name });
+          let item = await Items.findOne({ name: row.name });
+
           if (!item) {
-            Items.updateOne({ name: row.name });
+            await Items.create(row);
           } else {
-            Items.updateOne({ name: row.name });
+            await Items.updateOne({ name: row.name }, { $set: row });
           }
         } catch (err) {
           console.log(err);
         }
-      });
+      }
     });
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 module.exports = importItems;
