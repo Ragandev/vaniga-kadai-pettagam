@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const paymentsettingSchema = new mongoose.Schema({
+const paymentsettingSchema = new Schema({
   securitykey: {
     type: String,
     required: true
