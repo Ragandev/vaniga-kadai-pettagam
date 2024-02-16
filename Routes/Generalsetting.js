@@ -5,7 +5,7 @@ const General = require("../schema/generalsetting");
 dbConnect();
 const errMessage = "Something went wrong please try again later";
 
-//! Get All User Data
+//! Get All gs Data
 router.get("/", async (req, res) => {
   try {
     const data = await General.find();
@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-//! Edit User data
+//! Edit gs data
 router.put("/:id", async (req, res) => {
   try {
     const gsId = req.params.id;
