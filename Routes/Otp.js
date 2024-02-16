@@ -34,4 +34,27 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.post("/verify", async (req, res) => {
+  try {
+    const email = req.body.email;
+    const otp = req.body.otp;
+
+    const otpRecord = await Otp.findOne({ email: email, otp: otp });
+
+    if (!otpRecord) {
+      return res.status(401).json({
+        message: "OTP Mis-match or Expired",
+      });
+    } else {
+      return res.json({
+        message: "OTP Verified Successfully",
+      });
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+
 module.exports = router;
