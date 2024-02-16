@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema();
-
 const paymentsettingSchema = new Schema({
   securitykey: {
     type: String,
@@ -12,5 +10,4 @@ const paymentsettingSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model("paymentsetting", paymentsettingSchema);
-
+module.exports = mongoose.model("paymentsetting", paymentsettingSchema)

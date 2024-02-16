@@ -7,7 +7,7 @@ const shopbycategoryoneSchema = new Schema({
     required: true,
   },
   category: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
   },
   url: {
     type: String,
