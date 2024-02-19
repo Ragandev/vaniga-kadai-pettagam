@@ -1,11 +1,10 @@
 const multer = require("multer");
 
 const storage = multer.diskStorage({
-  dest: "../uploads",
   destination: "uploads/",
   filename: (req, file, callBack) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    callBack(null, file.fieldname + "-" + uniqueSuffix);
+    callBack(null, file.originalname + "-" + uniqueSuffix);
   },
 });
 const csvFilter = (req, file, cb) => {

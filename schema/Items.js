@@ -26,7 +26,7 @@ const itemSchema = new mongoose.Schema({
   tax: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "taxes",
+    ref: "tax",
   },
   createdat: {
     type: Date,

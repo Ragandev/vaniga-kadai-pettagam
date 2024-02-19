@@ -9,7 +9,7 @@ const pricingSchema = new mongoose.Schema({
   usertype: {
     type: mongoose.Types.ObjectId,
     required: true,
-    ref: "usertypes"
+    ref: "usertype"
   },
   pricepercentage: {
     type: Number,

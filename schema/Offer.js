@@ -3,7 +3,7 @@ const offerSchema = new mongoose.Schema({
   usertype: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "usertypes",
+    ref: "usertype",
   },
   offerfor: {
     type: String,
@@ -19,7 +19,7 @@ const offerSchema = new mongoose.Schema({
   },
   offerbrand: {
     type: mongoose.Schema.Types.ObjectId,
-    ref:"brands",
+    ref:"Brands",
     required: ()=>{
       return this.offerfor === "Brand"
     },
