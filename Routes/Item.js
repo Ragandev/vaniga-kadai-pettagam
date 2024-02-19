@@ -4,6 +4,8 @@ const dbConnect = require("../config/db");
 const Items = require("../schema/Items");
 const importItem = require("../modules/import");
 const upload = require("../modules/upload");
+const itemupload = require("../modules/itemUpload");
+
 dbConnect();
 const errMessage = "Something went wrong please try again later";
 
@@ -90,5 +92,16 @@ router.delete("/:id", async (req, res) => {
 router.post("/import", upload.single("file"), (req, res) => {
   importItem(req.file.filename);
 });
+
+// upload item image
+router.post("/upload",  itemupload.single("file"), (req, res) => {
+    if (!req.file) {
+      return res.status(404).json({ message: "No File Uploaded" });
+    }
+    const fileDetails = {
+      filename: req.file.filename,
+    };
+    return res.status(200).json({  message: "File Upload successfully" , file: fileDetails });
+  });
 
 module.exports = router;

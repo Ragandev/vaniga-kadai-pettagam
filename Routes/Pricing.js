@@ -8,7 +8,7 @@ const errMessage = "Something went wrong please try again later";
 //! Get All User Data
 router.get("/", async (req, res) => {
   try {
-    const data = await Price.find();
+    const data = await Price.find().populate("itemid");
     res.status(200).json(data);
   } catch (err) {
     console.log(err.message);
