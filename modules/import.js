@@ -10,7 +10,8 @@ const importItems = async (fileName) => {
       path.join(__dirname + `/../uploads/${fileName}`)
     );
 
-    csv.parseStream(csvStream, { headers: true }).on("data", async (rows) => {
+    csv.parseStream(csvStream, { headers: true }).on("data", async (data) => {
+      const rows = Array.isArray(data) ? data : [data];
       for (const row of rows) {
         try {
           let item = await Items.findOne({ name: row.name });

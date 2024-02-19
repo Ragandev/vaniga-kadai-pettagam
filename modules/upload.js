@@ -3,8 +3,9 @@ const multer = require("multer");
 const storage = multer.diskStorage({
   destination: "uploads/",
   filename: (req, file, callBack) => {
+    console.log(file)
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    callBack(null, file.originalname + "-" + uniqueSuffix);
+    callBack(null, uniqueSuffix + "-" + file.originalname);
   },
 });
 const csvFilter = (req, file, cb) => {
@@ -14,6 +15,6 @@ const csvFilter = (req, file, cb) => {
     cb(new Error("Only CSV files are allowed!"), false);
   }
 };
-const upload = multer({ storage, fileFilter: csvFilter });
+const upload = multer({ storage });
 
 module.exports = upload;
