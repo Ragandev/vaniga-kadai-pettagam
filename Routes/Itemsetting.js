@@ -8,7 +8,7 @@ const errMessage = "Something went wrong please try again later";
 //! Get All User Data
 router.get("/", async (req, res) => {
   try {
-    const data = await Item.find();
+    const data = await Item.findOne();
     res.status(200).json(data);
   } catch (err) {
     console.log(err.message);
@@ -34,6 +34,23 @@ router.put("/:id", async (req, res) => {
   } catch (err) {
     console.log(err.message);
     res.status(500).json({ message: errMessage }).end();
+  }
+});
+
+// Toggle checkbox
+router.post('/:checkboxName', async (req, res) => {
+  const checkboxName = req.params.checkboxName;
+
+  try {
+    const itemSettings = await Item.findOne();
+
+    itemSettings[checkboxName] = !itemSettings[checkboxName];
+    await itemSettings.save();
+
+    res.status(200).json({ success: true, message: 'Checkbox toggled successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Error toggling checkbox' });
   }
 });
 

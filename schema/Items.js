@@ -9,6 +9,16 @@ const itemSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  brand:{
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "Brands",
+  },
+  category:{
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "categories",
+  },
   metades: {
     type: String,
   },

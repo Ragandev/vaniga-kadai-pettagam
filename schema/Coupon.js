@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const couponSchema = new mongoose.Schema({
   usertype: {
-    type: [mongoose.Schema.Types.ObjectId],
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "usertypes",
+    ref: "usertype",
   },
   couponfor: {
     type: String,
@@ -19,7 +19,7 @@ const couponSchema = new mongoose.Schema({
   },
   couponbrand: {
     type: mongoose.Schema.Types.ObjectId,
-    ref:"brands",
+    ref:"Brands",
     required: ()=>{
       return this.couponfor === "Brand"
     },
