@@ -23,6 +23,7 @@ const paymentsettingRoute = require("./Routes/Paymentsetting");
 const itemsettingRoute = require("./Routes/Itemsetting");
 const mailsettingRoute = require("./Routes/Mailsetting");
 const ticketRoute = require("./Routes/Ticket");
+const adminUserRoute = require("./Routes/AdminUser");
 
 
 const app = express();
@@ -34,6 +35,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // User Code
 app.use("/api/user", userRoute);
+app.use("/api/adminuser", adminUserRoute);
 app.use("/api/otp", otpRoute);
 app.use("/api/usertype", usertypeRoute);
 app.use("/api/category", categoryRoute);

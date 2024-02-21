@@ -94,14 +94,16 @@ router.post("/import", upload.single("file"), (req, res) => {
 });
 
 // upload item image
-router.post("/upload",  itemupload.single("file"), (req, res) => {
-    if (!req.file) {
-      return res.status(404).json({ message: "No File Uploaded" });
-    }
-    const fileDetails = {
-      filename: req.file.filename,
-    };
-    return res.status(200).json({  message: "File Upload successfully" , file: fileDetails });
-  });
+router.post("/upload", itemupload.single("file"), (req, res) => {
+  if (!req.file) {
+    return res.status(404).json({ message: "No File Uploaded" });
+  }
+  const fileDetails = {
+    filename: req.file.filename,
+  };
+  return res
+    .status(200)
+    .json({ message: "File Upload successfully", file: fileDetails });
+});
 
 module.exports = router;
