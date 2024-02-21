@@ -1,21 +1,62 @@
-<div
-  style="
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: lightgray;
-  "
->
-  <h3>OTP Verification</h3>
-  <p>
-    Thank you for choosing our platform. To ensure the security of your account,
-    we require verification through a one-time password (OTP). Please find your
-    OTP details below:
-  </p>
-  <br />
-  <h5>OTP Code: <span style="font-weight: 600"></span></h5>
-  <br />
-  <p>
-    Thank you for your cooperation in maintaining the security of your account.
-  </p>
-</div>
+import React from 'react';
+import { Document, Page as PdfPage, Text, View, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer';
+
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'column',
+    backgroundColor: '#E4E4E4',
+    padding: 10,
+  },
+  section: {
+    margin: 10,
+    padding: 10,
+    flexGrow: 1,
+    border: 1,
+    borderColor: '#000',
+  },
+  title: {
+    fontSize: 24,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  label: {
+    fontWeight: 'bold',
+  },
+  value: {
+    marginBottom: 10,
+  },
+});
+
+const InvoicePDF = ({ invoice }) => (
+  <Document>
+    <PdfPage size="A4" style={styles.page}>
+      <View style={styles.section}>
+        <Text style={styles.title}>Invoice</Text>
+        <View style={styles.row}>
+          <Text style={styles.label}>Invoice Number:</Text>
+          <Text style={styles.value}>{invoice.invoicenumber}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Date:</Text>
+          <Text style={styles.value}>{invoice.date}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Order ID:</Text>
+          <Text style={styles.value}>{invoice.orderid}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Transaction ID:</Text>
+          <Text style={styles.value}>{invoice.transactionid}</Text>
+        </View>
+      </View>
+    </PdfPage>
+  </Document>
+);
+
+const DownloadInvoiceButton = ({ invoice }) => (
+  <PDFDownloadLink document={<InvoicePDF invoice={invoice} />} fileName="invoice.pdf">
+    {({ blob, url, loading, error }) => (loading ? 'Generating PDF...' : 'Download PDF')}
+  </PDFDownloadLink>
+);
+
+export default DownloadInvoiceButton;
