@@ -9,8 +9,8 @@ const errMessage = "Something went wrong please try again later";
 //! Login
 router.post("/login", async (req, res) => {
   try {
-    const user = await AdminUser.find({ username: req.body.username });
-
+    const user = await AdminUser.findOne({ username: req.body.username });
+    console.log(user)
     if (!user) {
       res.status(401).json({ message: "Invalid Username" });
     } else {
@@ -61,8 +61,13 @@ router.get("/:id", async (req, res) => {
 //! Add  User data
 router.post("/", async (req, res) => {
   try {
-    await AdminUser.create(req.body);
-    res.json({ message: "Brand Created Successfully" });
+    const user = await AdminUser.findOne({ username: req.body.username });
+    if(!user){
+      await AdminUser.create(req.body);
+      res.json({ message: "Admin User Created Successfully" });
+    }else{
+      res.json({ message: "Username Already exist" });
+    }
   } catch (err) {
     console.log(err.message);
     res.status(500).json({ message: errMessage }).end();
