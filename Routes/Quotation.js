@@ -72,7 +72,7 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const quotationId = req.params.id;
-    const quotation = await Brands.findById(quotationId);
+    const quotation = await Quotation.findById(quotationId);
 
     if (!quotation) {
       return res.status(404).json({ message: "Quotation not found" });
