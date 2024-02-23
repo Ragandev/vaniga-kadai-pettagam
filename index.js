@@ -24,6 +24,7 @@ const itemsettingRoute = require("./Routes/Itemsetting");
 const mailsettingRoute = require("./Routes/Mailsetting");
 const ticketRoute = require("./Routes/Ticket");
 const adminUserRoute = require("./Routes/AdminUser");
+const quotationRoute = require("./Routes/Quotation");
 
 
 const app = express();
@@ -48,12 +49,12 @@ app.use("/api/invoice", invoiceRoute);
 app.use("/api/offer", offerRoute);
 app.use("/api/coupon", couponRoute);
 app.use("/api/generalsetting", generalsettingRoute);
-
 app.use("/api/customprice", custompriceRoute);
 app.use("/api/paymentsetting", paymentsettingRoute);
 app.use("/api/itemsetting", itemsettingRoute);
 app.use("/api/mailsetting", mailsettingRoute);
 app.use("/api/ticket", ticketRoute);
+app.use("/api/quotation", quotationRoute);
 
 
 app.get("/", (req, res) => {
