@@ -29,6 +29,8 @@ const app = express();
 
 app.use(cors());
 
+app.use(express.static('uploads'));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 

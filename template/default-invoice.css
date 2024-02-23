@@ -1,0 +1,49 @@
+.header-section {
+    margin: 10px 0px 10px 0px;
+    padding: 0px 10px 0px 10px;
+  }
+  .main{
+    border:1px solid grey;
+    padding:30px 20px 50px 20px;
+  }
+  .main h5 {
+    font-weight: 700;
+  }
+  .head-logo img {
+    margin: 20px 0px 20px 0px;
+  }
+  .head-company span {
+    font-weight: 600;
+  }
+  .title-box {
+    height: 25px;
+    background-color: #ffc809;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .title-box p {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 800;
+    background-color: #fff;
+    width: fit-content;
+    padding: 0 50px;
+    margin-top: 10px !important;
+  }
+  .address-box span {
+    font-weight: 600;
+  }
+  thead {
+    background-color: black !important;
+    color: #fff;
+  }
+  hr {
+  border: 0; 
+  height: 5px; 
+  background-color: #ffc809; 
+  margin: 20px 0; 
+  font-weight: 900 !important; 
+  opacity: 0.5;
+  width:800px;
+}

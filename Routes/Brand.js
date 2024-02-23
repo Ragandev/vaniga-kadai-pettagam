@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const dbConnect = require("../config/db");
+const generateInvoicePDF = require("../template/invoicePdf");
 const Brands = require("../schema/Brands");
 dbConnect();
 const errMessage = "Something went wrong please try again later";
@@ -10,6 +11,25 @@ router.get("/", async (req, res) => {
   try {
     const data = await Brands.find();
     res.status(200).json(data);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ message: errMessage }).end();
+  }
+});
+
+router.get("/invoice", async (req, res) => {
+  try {
+    const invoiceData = {
+      products: [
+        { name: "Lenova Laptop", price: 50000, quantity: 10 },
+        { name: "Lenova Laptop", price: 50000, quantity: 10 },
+        { name: "Lenova Laptop", price: 50000, quantity: 10 },
+        { name: "Lenova Laptop", price: 50000, quantity: 10 },
+        { name: "Lenova Laptop", price: 50000, quantity: 10 },
+      ],
+    };
+
+    generateInvoicePDF();
   } catch (err) {
     console.log(err.message);
     res.status(500).json({ message: errMessage }).end();

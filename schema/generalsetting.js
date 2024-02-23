@@ -37,7 +37,7 @@ const generalsettingSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  logo: {
+  logo: { 
     type: String,
     required: true
   },
