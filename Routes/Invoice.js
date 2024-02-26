@@ -2,8 +2,51 @@ const express = require("express");
 const router = express.Router();
 const dbConnect = require("../config/db");
 const Invoice = require("../schema/invoice");
+const company = require("../schema/generalsetting");
+const invoiceSettings = require("../schema/invoiceSettings");
+const generatePdf = require("../modules/generatePdf");
+const invoice = require("../schema/invoice");
+const path = require("path");
 dbConnect();
 const errMessage = "Something went wrong please try again later";
+
+//! Generate Invoice
+router.post("/generate", async (req, res) => {
+  try {
+    let date = new Date();
+    let orderId = req.body.orderid;
+    let transactionid = req.body.orderid ? req.body.orderid : "";
+    let settings = await invoiceSettings.findOne();
+    let invoiceNumber = `${settings.invoicenumberprefix}${
+      settings.invoicenumber + 1
+    }`;
+    let fileName = invoiceNumber + date.toLocaleString() + ".pdf";
+
+    let invoiceDataPDf = {
+      number: invoiceNumber,
+      date: date.toLocaleString(),
+    };
+    const companyData = await company.findOne();
+    const user = req.body.user;
+    const items = req.body.items;
+    generatePdf(
+      companyData,
+      user,
+      items,
+      invoiceDataPDf,
+      path.join(__dirname + fileName)
+    );
+    let invoiceData = {
+      orderid: orderId,
+      transactionid: transactionid,
+    };
+    await invoice.create(invoiceData);
+    res.status(200).json({ message: "Invoice Saved" }).end();
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ message: errMessage }).end();
+  }
+});
 
 //! Get All User Data
 router.get("/", async (req, res) => {
@@ -50,9 +93,13 @@ router.put("/:id", async (req, res) => {
     const invoiceId = req.params.id;
     const invoiceData = req.body;
 
-    const updatedInvoice = await Invoice.findByIdAndUpdate(invoiceId, invoiceData, {
-      new: true,
-    });
+    const updatedInvoice = await Invoice.findByIdAndUpdate(
+      invoiceId,
+      invoiceData,
+      {
+        new: true,
+      }
+    );
 
     if (!updatedInvoice) {
       return res.status(404).json({ message: "Invoice not found" });
