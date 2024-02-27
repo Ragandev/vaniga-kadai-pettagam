@@ -4,7 +4,6 @@ const InvoiceSettings = require("./invoiceSettings");
 const invoiceSchema = new mongoose.Schema({
   invoicenumber: {
     type: String,
-    required: true,
   },
   date: {
     type: Date,

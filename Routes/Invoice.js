@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const dbConnect = require("../config/db");
 const Invoice = require("../schema/invoice");
+const moment = require("moment");
 const company = require("../schema/generalsetting");
+const companyData = require("../schema/generalsetting");
 const invoiceSettings = require("../schema/invoiceSettings");
 const generatePdf = require("../modules/generatePdf");
 const invoice = require("../schema/invoice");
@@ -13,29 +15,43 @@ const errMessage = "Something went wrong please try again later";
 //! Generate Invoice
 router.post("/generate", async (req, res) => {
   try {
-    let date = new Date();
+    const now = moment();
+    const dateNow = now.format("DD-MM-YYYY");
     let orderId = req.body.orderid;
     let transactionid = req.body.orderid ? req.body.orderid : "";
     let settings = await invoiceSettings.findOne();
-    let invoiceNumber = `${settings.invoicenumberprefix}${
+    let invoiceNumber = `${settings.invoicenumberprefix}-${
       settings.invoicenumber + 1
     }`;
-    let fileName = invoiceNumber + date.toLocaleString() + ".pdf";
+    let fileName = `${invoiceNumber}-${dateNow}.pdf`;
 
     let invoiceDataPDf = {
       number: invoiceNumber,
-      date: date.toLocaleString(),
+      date: dateNow,
     };
     const companyData = await company.findOne();
     const user = req.body.user;
     const items = req.body.items;
-    generatePdf(
-      companyData,
-      user,
-      items,
-      invoiceDataPDf,
-      path.join(__dirname + fileName)
-    );
+    let data = {
+      company: {
+        name: `${companyData.companyname}`,
+        address: `${companyData.address.address}, ${companyData.address.city}, ${companyData.address.state}, ${companyData.address.country} - ${companyData.address.pincode}`,
+        gst: `${companyData.gstnumber}`,
+        logo: `${companyData.logo}`,
+        bank: {
+          name: `${companyData.bankdetails.bankname}`,
+          accountnumber: `${companyData.bankdetails.accountnumber}`,
+          accoutholder: `${companyData.bankdetails.accountholdername}`,
+          branch: `${companyData.bankdetails.branchname}`,
+        },
+      },
+      user: user,
+      items: items,
+      invoice: invoiceDataPDf,
+    };
+    console.log(data);
+    let pathName = path.join(__dirname, "../Documents/Invoices", fileName);
+    generatePdf(data, pathName);
     let invoiceData = {
       orderid: orderId,
       transactionid: transactionid,

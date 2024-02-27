@@ -3,7 +3,8 @@ const fs = require("fs");
 
 const html = fs.readFileSync("templates/invoice/default.html", "utf8");
 
-const generatePdf = (company, user, items, invoice, path) => {
+
+const generatePdf = (data, path) => {
   const options = {
     format: "A4",
     orientation: "portrait",
@@ -12,7 +13,7 @@ const generatePdf = (company, user, items, invoice, path) => {
 
   const document = {
     html: html,
-    data: { company: company, user: user, items: items, invoice: invoice },
+    data: data,
     path: path,
   };
 

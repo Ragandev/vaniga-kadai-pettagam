@@ -62,6 +62,9 @@
       opacity: 0.5;
       width: 800px;
     }
+    .logoimg{
+      width: 50%;
+    }
   </style>
   <body>
     <div class="container main">
@@ -70,14 +73,15 @@
           <div class="row">
             <div class="col-6">
               <div class="head-logo">
-                <img src="" alt="Company Logo" />
+                <img class="logoimg" src="infy-logo.png" alt="Company Logo" />
               </div>
-            </div>
+            </div>  
             <div class="col-6">
               <div class="head-company">
-                <h5>{{company.companyname}}</h5>
-                <span>Address : </span>{{company.address.address}}
-                <span>GST Number : </span>{{company.gstnumber}}
+                <h5>{{company.name}}</h5>
+                <span>Address : </span>{{company.address}} 
+              </br>
+                <span>GST Number : </span>{{company.gst}}
               </div>
             </div>
           </div>
