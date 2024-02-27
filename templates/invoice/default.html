@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+
+    <title>Document</title>
+  </head>
+  <style>
+    .header-section {
+      margin: 10px 0px 10px 0px;
+      padding: 0px 10px 0px 10px;
+    }
+    .main {
+      border: 1px solid grey;
+      padding: 30px 20px 50px 20px;
+    }
+    .main h5 {
+      font-weight: 700;
+    }
+    .head-logo img {
+      margin: 20px 0px 20px 0px;
+    }
+    .head-company span {
+      font-weight: 600;
+    }
+    .title-box {
+      height: 25px;
+      background-color: #ffc809;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .title-box p {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 800;
+      background-color: #fff;
+      width: fit-content;
+      padding: 0 50px;
+      margin-top: 10px !important;
+    }
+    .address-box span {
+      font-weight: 600;
+    }
+    thead {
+      background-color: black !important;
+      color: #fff;
+    }
+    hr {
+      border: 0;
+      height: 5px;
+      background-color: #ffc809;
+      margin: 20px 0;
+      font-weight: 900 !important;
+      opacity: 0.5;
+      width: 800px;
+    }
+  </style>
+  <body>
+    <div class="container main">
+      <section>
+        <div class="header-section mb-4">
+          <div class="row">
+            <div class="col-6">
+              <div class="head-logo">
+                <img src="" alt="Company Logo" />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="head-company">
+                <h5>{{company.companyname}}</h5>
+                <span>Address : </span>{{company.address.address}}
+                <span>GST Number : </span>{{company.gstnumber}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="title-box mb-4">
+          <p>INVOICE</p>
+        </div>
+        <div class="address-box mb-4 py-2">
+          <div class="row">
+            <div class="col-md-4">
+              <h5>Bill To</h5>
+              {{user.address.address}}
+            </div>
+            <div class="col-md-4">
+              <h5>Ship To</h5>
+              {{user.address.address}}
+            </div>
+            <div class="col-md-4">
+              <h5>Invoice Details</h5>
+              <span>Invoice Numer : </span>{{invoice.number}}
+              <p><span>Date : </span>{{invoice.date}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="itembox">
+          <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th>S.No</th>
+                <th>Item</th>
+                <th>Unit</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Tax</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            {{#each items}}
+            <tr>
+              <td>{{this.index}}</td>
+              <td>{{this.name}}</td>
+              <td>{{this.unit}}</td>
+              <td>{{this.qty}}</td>
+              <td>{{this.tax}}</td>
+              <td>{{this.saleprice}}</td>
+            </tr>
+            {{/each}}
+          </table>
+        </div>
+        <div class="termbox">
+          <div class="row">
+            <div class="col-md-8">
+              <h5>Thank you for your business</h5>
+              <br />
+              <strong>Terms & Conditions</strong>
+              <p>
+                {{invoice.terms}}
+              </p>
+            </div>
+            <div class="col-md-4">
+              <h5 class="px-5 mb-3">
+                Sub Total:&nbsp;&nbsp;&nbsp;&nbsp; 
+              </h5>
+              <h5 class="px-5">
+                Tax:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18%
+              </h5>
+            </div>
+          </div>
+        </div>
+        <div class="payment">
+          <div class="row">
+            <div class="col-md-8">
+              <h5>Payment Info:</h5>
+              <span>Account : </span>5412454584545488454<br />
+              <span>A/C Name : </span>India Bank<br />
+              <span>Bank Details : </span>abc Street, Near to Coimbatore
+            </div>
+            <div class="col-md-4"></div>
+          </div>
+        </div>
+        <hr />
+        <div class="footer-bottom">
+          <div class="row">
+            <div class="col-md-8">
+              <strong
+                >Phone&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Website</strong
+              >
+            </div>
+            <div class="col-md-4">
+              <strong class="px-5">Authorised Sign</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
