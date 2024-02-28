@@ -32,7 +32,7 @@ invoiceSchema.pre("save", async function (next) {
 
     await settings.save();
 
-    doc.invoicenumber = `${settings.invoicenumberprefix}${settings.invoicenumber}`;
+    doc.invoicenumber = `${settings.invoicenumberprefix}-${settings.invoicenumber}`;
 
     next();
   } catch (error) {

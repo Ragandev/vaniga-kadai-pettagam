@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const InvoiceSettings = require("./invoiceSettings");
 
 const addressSchema = new mongoose.Schema({
   address: {
@@ -54,7 +55,6 @@ const quotationSchema = new mongoose.Schema({
   client: clientSchema,
   quotationnumber: {
     type: String,
-    required: true,
   },
   date: {
     type: Date,
@@ -64,6 +64,27 @@ const quotationSchema = new mongoose.Schema({
   taxtotal: Number,
   itemtotal: Number,
   total: Number,
+});
+
+quotationSchema.pre("save", async function (next) {
+  const doc = this;
+
+  try {
+    const settings = await InvoiceSettings.findOne();
+    if (!settings) {
+      throw new Error("Invoice settings not found.");
+    }
+
+    settings.quotationnumber += 1;
+
+    await settings.save();
+
+    doc.quotationnumber = `${settings.quotationnumberprefix}-${settings.quotationnumber}`;
+
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = mongoose.model("quotation", quotationSchema);

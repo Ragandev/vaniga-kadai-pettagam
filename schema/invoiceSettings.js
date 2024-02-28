@@ -11,6 +11,10 @@ const invoiceSettingsSchema = new mongoose.Schema({
   quotationnumberprefix: {
     type: String,
   },
+  quotationnumber: {
+    type: Number,
+    default: 0,
+  },
   terms: {
     type: String,
   },

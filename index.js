@@ -25,6 +25,7 @@ const mailsettingRoute = require("./Routes/Mailsetting");
 const ticketRoute = require("./Routes/Ticket");
 const adminUserRoute = require("./Routes/AdminUser");
 const quotationRoute = require("./Routes/Quotation");
+const purchaseRoute = require("./Routes/purchase");
 
 
 const app = express();
@@ -55,6 +56,7 @@ app.use("/api/itemsetting", itemsettingRoute);
 app.use("/api/mailsetting", mailsettingRoute);
 app.use("/api/ticket", ticketRoute);
 app.use("/api/quotation", quotationRoute);
+app.use("/api/purchase", purchaseRoute);
 
 
 app.get("/", (req, res) => {

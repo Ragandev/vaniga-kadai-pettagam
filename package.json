@@ -12,6 +12,7 @@
     "otp-generator": "^4.0.1",
     "path": "^0.12.7",
     "pdf-creator-node": "^2.3.5",
+    "pdfkit": "^0.14.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
