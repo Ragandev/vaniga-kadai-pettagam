@@ -41,10 +41,8 @@ const itemSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  tax: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "tax",
-    required: true,
+  taxamount: {
+    type: Number,
   },
   subtotal: {
     type: Number,

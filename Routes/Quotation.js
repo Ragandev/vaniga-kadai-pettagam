@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 const dbConnect = require("../config/db");
 const Quotation = require("../schema/Quotation");
+const InvoiceSettings = require("../schema/invoiceSettings");
+const GeneralSettings = require("../schema/generalsetting");
+const generatePdf = require("../modules/generatePdf");
+require("dotenv").config();
 dbConnect();
 const errMessage = "Something went wrong please try again later";
 
@@ -33,11 +37,37 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-//! Add  Quotation data
+//! Add Quotation data
 router.post("/", async (req, res) => {
   try {
-    await Quotation.create(req.body);
-    res.json({ message: "Quotation Created Successfully" });
+    let company = await GeneralSettings.findOne();
+    let invoiceData = await InvoiceSettings.findOne();
+
+    let invoice = {
+      number:
+        invoiceData.quotationnumberprefix + "-" + invoiceData.quotationnumber,
+      date: req.body.quote.date,
+      terms: invoiceData.terms,
+      sign: invoiceData.sign,
+    };
+
+    let data = {
+      company,
+      invoice,
+      logopath: process.env.BASEURL + "uploads/logo/",
+      signpath: process.env.BASEURL + "uploads/sign/",
+      ...req.body.quote,
+    };
+
+    generatePdf(data)
+      .then(async () => {
+        await Quotation.create(req.body.database);
+        res.json({ message: "Quotation Created Successfully" });
+      })
+      .catch((error) => {
+        console.error("Error generating PDF:", error);
+        res.json({ message: errMessage });
+      });
   } catch (err) {
     console.log(err.message);
     res.status(500).json({ message: errMessage }).end();

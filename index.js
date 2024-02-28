@@ -34,6 +34,7 @@ app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static('public'));
 
 // User Code
 app.use("/api/user", userRoute);
