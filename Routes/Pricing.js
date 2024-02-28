@@ -36,6 +36,12 @@ router.get("/:id", async (req, res) => {
 //! Add  User data
 router.post("/", async (req, res) => {
   try {
+    const {usertype , itemid} = req.body
+    const checkExists = await Price.findOne({usertype , itemid})
+
+    if(checkExists){
+      return res.status(400).json({ message: "Alerady Exists" })
+    }
     await Price.create(req.body);
     res.json({ message: "Price Created Successfully" });
   } catch (err) {
@@ -49,6 +55,13 @@ router.put("/:id", async (req, res) => {
   try {
     const priceId = req.params.id;
     const priceData = req.body;
+
+    const {usertype , itemid} = req.body
+    const checkExists = await Price.findOne({usertype , itemid})
+
+    if(checkExists){
+      return res.status(400).json({ message: "Alerady Exists" })
+    }
 
     const updatedPrice = await Price.findByIdAndUpdate(priceId, priceData, {
       new: true,

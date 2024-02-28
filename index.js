@@ -24,12 +24,16 @@ const itemsettingRoute = require("./Routes/Itemsetting");
 const mailsettingRoute = require("./Routes/Mailsetting");
 const ticketRoute = require("./Routes/Ticket");
 const adminUserRoute = require("./Routes/AdminUser");
+const bannerRoute = require("./Routes/Banner");
+const shopbycat1Route = require("./Routes/Shopbycategory1");
+const shopbycat2Route = require("./Routes/Shopbycategory2");
+const shopbycat3Route = require("./Routes/Shopbycategory3");
+const offerbanner = require("./Routes/Offerbanner");
 
 
 const app = express();
 
 app.use(cors());
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -54,6 +58,11 @@ app.use("/api/paymentsetting", paymentsettingRoute);
 app.use("/api/itemsetting", itemsettingRoute);
 app.use("/api/mailsetting", mailsettingRoute);
 app.use("/api/ticket", ticketRoute);
+app.use("/api/banner", bannerRoute);
+app.use("/api/shopcat1", shopbycat1Route);
+app.use("/api/shopcat2", shopbycat2Route);
+app.use("/api/shopcat3", shopbycat3Route);
+app.use("/api/offerbanner", offerbanner);
 
 
 app.get("/", (req, res) => {

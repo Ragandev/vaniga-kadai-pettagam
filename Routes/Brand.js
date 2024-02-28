@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const dbConnect = require("../config/db");
 const Brands = require("../schema/Brands");
+const Auth = require("../modules/authentication");
 dbConnect();
 const errMessage = "Something went wrong please try again later";
 
@@ -34,7 +35,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //! Add  User data
-router.post("/", async (req, res) => {
+router.post("/",Auth, async (req, res) => {
   try {
     await Brands.create(req.body);
     res.json({ message: "Brand Created Successfully" });

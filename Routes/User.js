@@ -7,6 +7,8 @@ const OTP = require("../schema/Otp");
 const otpGenerator = require("otp-generator");
 const generateOtp = require("../modules/generateOtp");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const Auth = require("../modules/authentication");
 dbConnect();
 
 const errMessage = "Something went wrong please try again later";
@@ -70,6 +72,44 @@ router.post("/singnup", async (req, res) => {
     console.log(err.message);
     res.status(500).json({ message: errMessage }).end();
   }
+});
+
+router.post("/login", async (req, res) => {
+  try {
+    const user = await Users.findOne({ email: req.body.email });
+    console.log(user);
+    if (!user) {
+      res.status(401).json({ message: "Invalid email" });
+    } else {
+      const isPasswordMatch = await bcrypt.compare(
+        req.body.password,
+        user.password
+      );
+      if (!isPasswordMatch) {
+        res.status(401).json({ message: "Invalid Password" });
+      } else {
+        const token = jwt.sign(
+          { userId: user._id },
+          process.env.JWT_SECERT_KEY,
+          { expiresIn: "3d" }
+        );
+        res.status(200).json({ message: "Login Successfully", token:token });
+      }
+    }
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ message: errMessage }).end();
+  }
+});
+
+router.get("/getuser",Auth, async (req, res) => {
+  try {
+    console.log("User ID:", req.body.userId);
+    const user = await Users.findOne({_id:req.body.userId})
+    return res.status(200).json({ message: "User Fetch Successfully",user });
+} catch (error) {
+  res.status(500).json({ message: errMessage }).end();
+}
 });
 
 //! Edit User data

@@ -17,28 +17,28 @@ router.get("/", async (req, res) => {
 });
 
 //! Edit User data
-router.put("/:id", async (req, res) => {
-  try {
-    const itemId = req.params.id;
-    const itemData = req.body;
+// router.put("/:id", async (req, res) => {
+//   try {
+//     const itemId = req.params.id;
+//     const itemData = req.body;
 
-    const updatedItem = await Item.findByIdAndUpdate(itemId, itemData, {
-      new: true,
-    });
+//     const updatedItem = await Item.findByIdAndUpdate(itemId, itemData, {
+//       new: true,
+//     });
 
-    if (!updatedItem) {
-      return res.status(404).json({ message: "Item settings not found" });
-    }
+//     if (!updatedItem) {
+//       return res.status(404).json({ message: "Item settings not found" });
+//     }
 
-    res.json({ message: "Item settings Updated Successfully" });
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).json({ message: errMessage }).end();
-  }
-});
+//     res.json({ message: "Item settings Updated Successfully" });
+//   } catch (err) {
+//     console.log(err.message);
+//     res.status(500).json({ message: errMessage }).end();
+//   }
+// });
 
 // Toggle checkbox
-router.post('/:checkboxName', async (req, res) => {
+router.put('/:checkboxName', async (req, res) => {
   const checkboxName = req.params.checkboxName;
 
   try {

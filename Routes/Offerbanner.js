@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const dbConnect = require("../config/db");
-const shopcat1 = require("../schema/shopbycategory1");
+const offerbanner = require("../schema/offerbanner");
 dbConnect();
 const errMessage = "Something went wrong please try again later";
 
 //! Get All User Data
 router.get("/", async (req, res) => {
   try {
-    const data = await shopcat1.find();
+    const data = await offerbanner.find();
     res.status(200).json(data);
   } catch (err) {
     console.log(err.message);
@@ -18,18 +18,18 @@ router.get("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
     try {
-      const bannerId = req.params.id;
-      const bannerData = req.body;
+      const offerbannerId = req.params.id;
+      const offerbannerData = req.body;
   
-      const updatedPs = await shopcat1.findByIdAndUpdate(bannerId, bannerData, {
+      const updatedPs = await offerbanner.findByIdAndUpdate(offerbannerId, offerbannerData, {
         new: true,
       });
   
       if (!updatedPs) {
-        return res.status(404).json({ message: "Shop By Category1 settings not found" });
+        return res.status(404).json({ message: "Banner settings not found" });
       }
   
-      res.json({ message: "Shop By Category1 settings Updated Successfully" });
+      res.json({ message: "Offer Banner settings Updated Successfully" });
     } catch (err) {
       console.log(err.message);
       res.status(500).json({ message: errMessage }).end();

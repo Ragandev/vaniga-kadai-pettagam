@@ -26,10 +26,10 @@ router.put("/:id", async (req, res) => {
       });
   
       if (!updatedPs) {
-        return res.status(404).json({ message: "Shop By Category1 settings not found" });
+        return res.status(404).json({ message: "Banner settings not found" });
       }
   
-      res.json({ message: "Shop By Category1 settings Updated Successfully" });
+      res.json({ message: "Banner settings Updated Successfully" });
     } catch (err) {
       console.log(err.message);
       res.status(500).json({ message: errMessage }).end();
