@@ -9,16 +9,13 @@ function createMulterMiddleware(destinationPath) {
     },
     filename: function (req, file, cb) {
       const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-      cb(
-        null,
-        uniqueSuffix + "-" + file.originalname
-      );
+      cb(null, uniqueSuffix + "-" + file.originalname);
     },
   });
 
   return multer({
     storage: storage,
-    limits: { fileSize: 2 * 1024 * 1024 }, 
-})
-
+    limits: { fileSize: 2 * 1024 * 1024 },
+  });
+}
 module.exports = createMulterMiddleware;

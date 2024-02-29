@@ -96,7 +96,7 @@ router.post("/import", upload.single("file"), (req, res) => {
 // upload item image
 router.post(
   "/upload",
-  createMulterMiddleware("uploads/items").single("file"),
+  createMulterMiddleware("public/uploads/item").single("file"),
   (req, res) => {
     if (!req.file) {
       return res.status(404).json({ message: "No File Uploaded" });

@@ -31,6 +31,7 @@ const variantsSchema = new mongoose.Schema({
   type: {
     type: String,
     enum: ["color", "quantity"],
+    default:null,
   },
   variant:[variantSchema]
 });
