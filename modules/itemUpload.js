@@ -18,5 +18,4 @@ function createMulterMiddleware(destinationPath) {
     limits: { fileSize: 2 * 1024 * 1024 },
   });
 }
-
 module.exports = createMulterMiddleware;
