@@ -31,6 +31,7 @@ const shopbycat3Route = require("./Routes/Shopbycategory3");
 const offerbanner = require("./Routes/Offerbanner");
 const quotationRoute = require("./Routes/Quotation");
 const purchaseRoute = require("./Routes/purchase");
+const invoiceSettingRoute = require("./Routes/InvoiceSettings");
 
 
 
@@ -40,6 +41,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
+app.use(express.static('Documents'));
 
 // User Code
 app.use("/api/user", userRoute);
@@ -68,6 +70,7 @@ app.use("/api/shopcat3", shopbycat3Route);
 app.use("/api/offerbanner", offerbanner);
 app.use("/api/quotation", quotationRoute);
 app.use("/api/purchase", purchaseRoute);
+app.use("/api/invoicesettings", invoiceSettingRoute);
 
 
 app.get("/", (req, res) => {

@@ -25,9 +25,9 @@ async function generatePdfFromEjs(data, options = {}) {
   };
   let outputPath = "";
   if (data.type == 1) {
-    outputPath = `documents/quotations/${data.invoice.number}.pdf`;
+    outputPath = `documents/quotations/${data.invoice.name}.pdf`;
   } else {
-    outputPath = `documents/invoices/${data.invoice.number}.pdf`;
+    outputPath = `documents/invoices/${data.invoice.name}.pdf`;
   }
 
   await page.pdf({ path: outputPath, ...pdfOptions });

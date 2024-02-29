@@ -16,6 +16,9 @@ const invoiceSchema = new mongoose.Schema({
   transactionid: {
     type: String,
   },
+  file: {
+    type: String,
+  },
 });
 
 invoiceSchema.pre("save", async function (next) {

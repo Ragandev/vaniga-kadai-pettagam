@@ -5,6 +5,7 @@ const Quotation = require("../schema/Quotation");
 const InvoiceSettings = require("../schema/invoiceSettings");
 const GeneralSettings = require("../schema/generalsetting");
 const generatePdf = require("../modules/generatePdf");
+const moment = require("moment");
 require("dotenv").config();
 dbConnect();
 const errMessage = "Something went wrong please try again later";
@@ -43,12 +44,19 @@ router.post("/", async (req, res) => {
     let company = await GeneralSettings.findOne();
     let invoiceData = await InvoiceSettings.findOne();
 
+    const momentDate = moment();
+    const dateNow = momentDate.format("DD-MM-YYYY");
+
     let invoice = {
-      number:
-        invoiceData.quotationnumberprefix + "-" + invoiceData.quotationnumber,
+      number: `${invoiceData.quotationnumberprefix}-${
+        invoiceData.quotationnumber + 1
+      }`,
       date: req.body.quote.date,
       terms: invoiceData.terms,
       sign: invoiceData.sign,
+      name: `${invoiceData.quotationnumberprefix}-${
+        invoiceData.quotationnumber + 1
+      }-${dateNow}`,
     };
 
     let data = {
@@ -59,9 +67,14 @@ router.post("/", async (req, res) => {
       ...req.body.quote,
     };
 
+    let dbData = {
+      ...req.body.database,
+      file: invoice.name,
+    };
+
     generatePdf(data)
       .then(async () => {
-        await Quotation.create(req.body.database);
+        await Quotation.create(dbData);
         res.json({ message: "Quotation Created Successfully" });
       })
       .catch((error) => {

@@ -4,60 +4,53 @@ const dbConnect = require("../config/db");
 const Invoice = require("../schema/invoice");
 const moment = require("moment");
 const company = require("../schema/generalsetting");
-const companyData = require("../schema/generalsetting");
 const invoiceSettings = require("../schema/invoiceSettings");
 const generatePdf = require("../modules/generatePdf");
 const invoice = require("../schema/invoice");
-const path = require("path");
 dbConnect();
 const errMessage = "Something went wrong please try again later";
 
 //! Generate Invoice
 router.post("/generate", async (req, res) => {
   try {
-    const now = moment();
-    const dateNow = now.format("DD-MM-YYYY");
+    const momentDate = moment();
+    const dateNow = momentDate.format("DD-MM-YYYY");
+
     let orderId = req.body.orderid;
-    let transactionid = req.body.orderid ? req.body.orderid : "";
+    let transactionid = req.body.transactionid ? req.body.transactionid : "";
+
     let settings = await invoiceSettings.findOne();
+
     let invoiceNumber = `${settings.invoicenumberprefix}-${
       settings.invoicenumber + 1
     }`;
+
     let fileName = `${invoiceNumber}-${dateNow}.pdf`;
 
     let invoiceDataPDf = {
       number: invoiceNumber,
       date: dateNow,
+      sign: settings.sign,
     };
+    
     const companyData = await company.findOne();
-    const user = req.body.user;
-    const items = req.body.items;
-    let data = {
-      company: {
-        name: `${companyData.companyname}`,
-        address: `${companyData.address.address}, ${companyData.address.city}, ${companyData.address.state}, ${companyData.address.country} - ${companyData.address.pincode}`,
-        gst: `${companyData.gstnumber}`,
-        logo: `${companyData.logo}`,
-        bank: {
-          name: `${companyData.bankdetails.bankname}`,
-          accountnumber: `${companyData.bankdetails.accountnumber}`,
-          accoutholder: `${companyData.bankdetails.accountholdername}`,
-          branch: `${companyData.bankdetails.branchname}`,
-        },
-      },
-      user: user,
-      items: items,
-      invoice: invoiceDataPDf,
-    };
-    console.log(data);
-    let pathName = path.join(__dirname, "../Documents/Invoices", fileName);
-    generatePdf(data, pathName);
+
     let invoiceData = {
       orderid: orderId,
       transactionid: transactionid,
+      file: fileName,
     };
+
+    let data = {
+      company: companyData,
+      invoice: invoiceDataPDf,
+      ...req.body.invoice,
+    };
+
+    generatePdf(data);
     await invoice.create(invoiceData);
     res.status(200).json({ message: "Invoice Saved" }).end();
+    
   } catch (err) {
     console.log(err.message);
     res.status(500).json({ message: errMessage }).end();

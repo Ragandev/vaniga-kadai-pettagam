@@ -62,6 +62,7 @@ const quotationSchema = new mongoose.Schema({
   taxtotal: Number,
   itemtotal: Number,
   total: Number,
+  file: String,
 });
 
 quotationSchema.pre("save", async function (next) {
