@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const dbConnect = require("../config/db");
 const Coupon = require("../schema/Coupon");
+const moment = require('moment');
 dbConnect();
 const errMessage = "Something went wrong please try again later";
 
@@ -34,6 +35,28 @@ router.get("/:id", async (req, res) => {
 //! Add  User data
 router.post("/", async (req, res) => {
   try {
+    const {usertype ,couponfor, couponitems , couponbrand , couponcategory, fromdate,todate } = req.body
+    
+    const fromDate = moment(fromdate, 'YYYY-MM-DD');
+    const toDate = moment(todate, 'YYYY-MM-DD');
+    if (toDate.isSameOrBefore(fromDate)) {
+      return res.status(400).json({ message: "End date must be after start date" });
+    }
+
+    let checkExists;
+    if(couponfor === "Item"){
+     checkExists = await Coupon.findOne({usertype , couponitems})
+    }
+    if(couponfor === "Brand"){
+     checkExists = await Coupon.findOne({usertype , couponbrand})
+    }
+    if(couponfor === "Category"){
+     checkExists = await Coupon.findOne({usertype , couponcategory})
+    }
+
+    if(checkExists){
+      return res.status(400).json({ message: "Alerady Exists" })
+    }
     await Coupon.create(req.body);
     res.json({ message: "Coupon Created Successfully" });
   } catch (err) {
@@ -47,6 +70,32 @@ router.put("/:id", async (req, res) => {
   try {
     const couponId = req.params.id;
     const couponData = req.body;
+
+    const currentData = await Coupon.findOne({_id: couponId  })
+    const {usertype ,couponfor, couponitems , couponbrand , couponcategory, fromdate, todate} = req.body
+    
+    const fromDate = moment(fromdate, 'YYYY-MM-DD');
+    const toDate = moment(todate, 'YYYY-MM-DD');
+    if (toDate.isSameOrBefore(fromDate)) {
+      return res.status(400).json({ message: "End date must be after start date" });
+    }
+
+    let checkExists;
+    if(currentData.couponfor !== couponData.couponfor){
+      if(couponfor === "Item"){
+       checkExists = await Coupon.findOne({usertype , couponitems})
+      }
+      if(couponfor === "Brand"){
+       checkExists = await Coupon.findOne({usertype , couponbrand})
+      }
+      if(couponfor === "Category"){
+       checkExists = await Coupon.findOne({usertype , couponcategory})
+      }
+    }
+
+    if(checkExists){
+      return res.status(400).json({ message: "Alerady Exists" })
+    }
 
     const updatedCoupon = await Coupon.findByIdAndUpdate(couponId, couponData, {
       new: true,

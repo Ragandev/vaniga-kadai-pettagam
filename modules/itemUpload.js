@@ -19,7 +19,6 @@ function createMulterMiddleware(destinationPath) {
   return multer({
     storage: storage,
     limits: { fileSize: 2 * 1024 * 1024 }, 
-  });
-}
+})
 
 module.exports = createMulterMiddleware;

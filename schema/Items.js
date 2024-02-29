@@ -1,5 +1,40 @@
 const mongoose = require("mongoose");
 
+const sizeSchema = new mongoose.Schema({
+  size: {
+    type: String,
+  },
+  quantity: {
+    type: Number,
+  },
+});
+const variantSchema = new mongoose.Schema({
+  color: {
+    type: String,
+  },
+  price: {
+    type: Number,
+  },
+  quantity: {
+    type: Number,
+  },
+  img:{
+    type: [String],
+  },
+  variantsizes:[sizeSchema]
+});
+
+const variantsSchema = new mongoose.Schema({
+  name: {
+    type: String,
+  },
+  type: {
+    type: String,
+    enum: ["color", "quantity"],
+  },
+  variant:[variantSchema]
+});
+
 const itemSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -38,6 +73,20 @@ const itemSchema = new mongoose.Schema({
     required: true,
     ref: "tax",
   },
+  sizes:[sizeSchema],
+  variants:[variantsSchema],
+  ingredient:{
+    type:String
+  },
+  color:{
+    type:String
+  },
+  material:{
+    type:String
+  },
+  dimension:{
+    type:String
+  },
   createdat: {
     type: Date,
     default: Date.now,
@@ -58,6 +107,7 @@ const itemSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
+
   stockqty: {
     type: Number,
     required: true,

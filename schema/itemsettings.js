@@ -23,8 +23,32 @@ const itemsettingSchema = new mongoose.Schema({
   batchnumber:{
     type: Boolean,
     default: 0
-  }
+  },
+  color:{
+    type: Boolean,
+    default: 0
+  },
+  size:{
+    type: Boolean,
+    default: 0
+  },
+  material:{
+    type: Boolean,
+    default: 0
+  },
+  dimension:{
+    type: Boolean,
+    default: 0
+  },
+  width:{
+    type: Boolean,
+    default: 0
+  },
 
+  variant:{
+    type: Boolean,
+    default: 0,
+  },
 });
 
 module.exports = mongoose.model("itemsetting", itemsettingSchema);

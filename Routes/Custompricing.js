@@ -37,6 +37,12 @@ router.get("/:id", async (req, res) => {
 //! Add  User data
 router.post("/", async (req, res) => {
   try {
+    const {userid , itemid} = req.body
+    const checkExists = await Custompricing.findOne({userid , itemid})
+
+    if(checkExists){
+      return res.status(400).json({ message: "Alerady Exists" })
+    }
     await Custompricing.create(req.body);
     res.json({ message: "Custom pricing Created Successfully" });
   } catch (err) {
@@ -50,6 +56,13 @@ router.put("/:id", async (req, res) => {
   try {
     const cpId = req.params.id;
     const updateData = req.body;
+
+    const {userid , itemid} = req.body
+    const checkExists = await Custompricing.findOne({userid , itemid})
+
+    if(checkExists){
+      return res.status(400).json({ message: "Alerady Exists" })
+    }
 
     const updatedCp = await Custompricing.findByIdAndUpdate(cpId, updateData, {
       new: true,
