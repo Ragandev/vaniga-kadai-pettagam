@@ -29,6 +29,9 @@ const shopbycat1Route = require("./Routes/Shopbycategory1");
 const shopbycat2Route = require("./Routes/Shopbycategory2");
 const shopbycat3Route = require("./Routes/Shopbycategory3");
 const offerbanner = require("./Routes/Offerbanner");
+const quotationRoute = require("./Routes/Quotation");
+const purchaseRoute = require("./Routes/purchase");
+
 
 
 const app = express();
@@ -36,6 +39,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static('public'));
 
 // User Code
 app.use("/api/user", userRoute);
@@ -52,7 +56,6 @@ app.use("/api/invoice", invoiceRoute);
 app.use("/api/offer", offerRoute);
 app.use("/api/coupon", couponRoute);
 app.use("/api/generalsetting", generalsettingRoute);
-
 app.use("/api/customprice", custompriceRoute);
 app.use("/api/paymentsetting", paymentsettingRoute);
 app.use("/api/itemsetting", itemsettingRoute);
@@ -63,6 +66,8 @@ app.use("/api/shopcat1", shopbycat1Route);
 app.use("/api/shopcat2", shopbycat2Route);
 app.use("/api/shopcat3", shopbycat3Route);
 app.use("/api/offerbanner", offerbanner);
+app.use("/api/quotation", quotationRoute);
+app.use("/api/purchase", purchaseRoute);
 
 
 app.get("/", (req, res) => {

@@ -4,7 +4,7 @@ const dbConnect = require("../config/db");
 const Items = require("../schema/Items");
 const importItem = require("../modules/import");
 const upload = require("../modules/upload");
-const itemupload = require("../modules/itemUpload");
+const createMulterMiddleware = require("../modules/itemUpload");
 
 dbConnect();
 const errMessage = "Something went wrong please try again later";
@@ -12,7 +12,7 @@ const errMessage = "Something went wrong please try again later";
 //! Get All User Data
 router.get("/", async (req, res) => {
   try {
-    const data = await Items.find().populate(['tax','brand','category']);
+    const data = await Items.find().populate(["tax", "brand", "category"]);
     res.status(200).json(data);
   } catch (err) {
     console.log(err.message);
@@ -94,16 +94,20 @@ router.post("/import", upload.single("file"), (req, res) => {
 });
 
 // upload item image
-router.post("/upload", itemupload.single("file"), (req, res) => {
-  if (!req.file) {
-    return res.status(404).json({ message: "No File Uploaded" });
+router.post(
+  "/upload",
+  createMulterMiddleware("uploads/items").single("file"),
+  (req, res) => {
+    if (!req.file) {
+      return res.status(404).json({ message: "No File Uploaded" });
+    }
+    const fileDetails = {
+      filename: req.file.filename,
+    };
+    return res
+      .status(200)
+      .json({ message: "File Upload successfully", file: fileDetails });
   }
-  const fileDetails = {
-    filename: req.file.filename,
-  };
-  return res
-    .status(200)
-    .json({ message: "File Upload successfully", file: fileDetails });
-});
+);
 
 module.exports = router;

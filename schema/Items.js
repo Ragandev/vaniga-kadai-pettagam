@@ -44,12 +44,12 @@ const itemSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  brand:{
+  brand: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "Brands",
   },
-  category:{
+  category: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "categories",

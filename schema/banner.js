@@ -12,5 +12,3 @@ const bannerSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("banner", bannerSchema);
-
-

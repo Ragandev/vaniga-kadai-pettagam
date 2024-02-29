@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src=" https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/lib/index.min.js "></script>
+<link href=" https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/base.min.css " rel="stylesheet">
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      margin: 20px;
+    }
+    .logoimg{
+      width: 200px;
+    }
+    .title-box{
+      color: #ffc600;
+      font-weight: 900;
+      font-size: 24px;
+      text-align: center;
+    }
+    .text-right{
+      text-align: right;
+    }
+    .color-text{
+      color: #198754;
+      font-weight: 900;
+    }
+    .signbox{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+    }
+    .sign{
+      width: 100px;
+    }
+  </style>
+  <body>
+    <div class="main">
+      <section>
+        <div class="header-section mb-4">
+          <div class="row">
+            <div class="col-6">
+              <div class="head-logo">
+                <img class="logoimg" src='<%= logopath + company.logo %>' alt="Company Logo" />
+              </div> 
+            </div>
+            <div class="col-6">
+              <div class="head-company text-right">
+                <h5 class="text-success"><%= company.companyname %></h5>
+                <%= company.address.address + "," + company.address.city + "," + company.address.state + "," + company.address.country + "-" + company.address.pincode %>
+                <br>
+                <%= company.gstnumber %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="title-box mb-4">
+          <p>INVOICE</p>
+        </div>
+        <div class="address-box mb-4 py-2">
+          <div class="row">
+            <div class="<% if(type == 2){ %> col-md-4 <% }else{ %> col-md-6 <% } %>">
+              <h5>Bill To</h5>
+              <p><%= user.name %></p>
+              <%= user.billingaddress.address + "," + user.billingaddress.city + "," + user.billingaddress.state + "," + user.billingaddress.country + "-" + user.billingaddress.pincode %>
+              <br><p><%= user.mobile %></p>
+            </div>
+            <% if(type == 2){ %>
+            <div class="col-md-4">
+              <h5>Ship To</h5>
+              <p><%= user.name %></p>
+              <%= user.shippingaddress.address + "," + user.shippingaddress.city + "," + user.shippingaddress.state + "," + user.shippingaddress.country + "-" + user.shippingaddress.pincode %>
+              <br><p><%= user.mobile %></p>
+            </div>
+            <% } %>
+            <div class="<% if(type == 2){ %> col-md-4 <% }else{ %> col-md-6 <% } %> text-right">
+              <h5>Invoice Details</h5>
+              <span>Invoice Number : </span><%= invoice.number %>
+              <p><span>Date : </span><%= invoice.date %></p>
+            </div>
+          </div>
+        </div>
+        <div class="itembox">
+          <table class="table text-red-900 table-striped table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th>S.No</th>
+                <th>Item</th>
+                <th>Unit</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Tax</th>
+                <th>Tax Amount</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <% items.forEach(function(item, index) { %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= item.name %></td>
+              <td><%= item.unit %></td>
+              <td><%= item.qty %></td>
+              <td><%= item.unitprice %></td>
+              <td><%= item.tax %></td>
+              <td><%= item.taxamount %></td>
+              <td><%= item.subtotal %></td>
+            </tr>
+            <% }); %>
+          </table>
+        </div>
+        <div class="termbox">
+          <div class="row">
+            <div class="col-md-6">
+              <h5>Thank you for your business</h5>
+              <br />
+              <strong>Terms & Conditions</strong>
+              <p><%= invoice.terms %></p>
+            </div>
+            <div class=" text-right col-md-6">
+              <h6 class="mb-3">Sub Total: <span class="color-text"> <%= itemtotal %></span></h5>
+              <h6 class="mb-3">Tax Total: <span class="color-text"> <%= taxtotal %></span></h5>
+              <h6 class="mb-3">Total Total: <span class="color-text"> <%= total %></span></h5>
+            </div>
+          </div>
+        </div>
+        <div class="payment">
+          <div class="row">
+            <div class="col-md-8">
+              <h5>Payment Info:</h5>
+              <span>Bank : </span><%= company.bankdetails.bankname %><br />
+              <span>Account : </span><%= company.bankdetails.accountnumber %><br />
+              <span>A\C Holder Name : </span><%= company.bankdetails.accountholdername %><br />
+              <span>Branch : </span><%= company.bankdetails.branchname %>
+            </div>
+            <div class="col-md-4">
+              <div class="signbox">
+                <img class="sign" src='<%= signpath + invoice.sign %>' alt="Sign" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="bottom-hr" />
+        <div class="footer-bottom">
+          <div class="row">
+            <div class="col-md-8">
+              <strong
+                ><%= company.phonenumber %> &nbsp;| &nbsp; <%= company.email %> </strong>
+            </div>
+            <div class="col-md-4">
+              <strong class="px-5">Authorised Sign</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
