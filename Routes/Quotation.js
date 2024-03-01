@@ -90,21 +90,57 @@ router.post("/", async (req, res) => {
 //! Edit Quotation data
 router.put("/:id", async (req, res) => {
   try {
+    let company = await GeneralSettings.findOne();
+    let invoiceData = await InvoiceSettings.findOne();
+
+    const momentDate = moment();
+    const dateNow = momentDate.format("DD-MM-YYYY");
+
+    let invoice = {
+      number: `${invoiceData.quotationnumberprefix}-${
+        invoiceData.quotationnumber + 1
+      }`,
+      date: req.body.quote.date,
+      terms: invoiceData.terms,
+      sign: invoiceData.sign,
+      name: `${invoiceData.quotationnumberprefix}-${
+        invoiceData.quotationnumber + 1
+      }-${dateNow}`,
+    };
+
+    let data = {
+      company,
+      invoice,
+      logopath: process.env.BASEURL + "uploads/logo/",
+      signpath: process.env.BASEURL + "uploads/sign/",
+      ...req.body.quote,
+    };
+
+    let dbData = {
+      ...req.body.database,
+      file: invoice.name,
+    };
+
     const quotationId = req.params.id;
-    const quotationData = req.body;
 
-    const updatedQuotation = await Quotation.findByIdAndUpdate(
-      quotationId,
-      quotationData,
-      {
-        new: true,
-      }
-    );
-
-    if (!updatedQuotation) {
-      return res.status(404).json({ message: "Quotation not found" });
-    }
-    res.json({ message: "Quotation Updated Successfully" });
+    generatePdf(data)
+      .then(async () => {
+        const updatedQuotation = await Quotation.findByIdAndUpdate(
+          quotationId,
+          dbData,
+          {
+            new: true,
+          }
+        );
+        if (!updatedQuotation) {
+          return res.status(404).json({ message: "Quotation not found" });
+        }
+        res.json({ message: "Quotation Updated Successfully" });
+      })
+      .catch((error) => {
+        console.error("Error generating PDF:", error);
+        res.json({ message: errMessage });
+      });
   } catch (err) {
     console.log(err.message);
     res.status(500).json({ message: errMessage }).end();
