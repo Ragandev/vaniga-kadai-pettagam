@@ -51,9 +51,6 @@ const generalsettingSchema = new mongoose.Schema({
   gstnumber: {
     type: String,
   },
-  paymentlink: {
-    type: String,
-  },
   bankdetails: bankSchema,
 });
 

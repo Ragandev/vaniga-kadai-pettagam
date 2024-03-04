@@ -18,10 +18,10 @@ const variantSchema = new mongoose.Schema({
   quantity: {
     type: Number,
   },
-  img:{
+  img: {
     type: [String],
   },
-  variantsizes:[sizeSchema]
+  variantsizes: [sizeSchema],
 });
 
 const variantsSchema = new mongoose.Schema({
@@ -31,9 +31,9 @@ const variantsSchema = new mongoose.Schema({
   type: {
     type: String,
     enum: ["color", "quantity"],
-    default:null,
+    default: null,
   },
-  variant:[variantSchema]
+  variant: [variantSchema],
 });
 
 const itemSchema = new mongoose.Schema({
@@ -70,23 +70,21 @@ const itemSchema = new mongoose.Schema({
     required: true,
   },
   tax: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: "tax",
+    type: Number,
   },
-  sizes:[sizeSchema],
-  variants:[variantsSchema],
-  ingredient:{
-    type:String
+  sizes: [sizeSchema],
+  variants: [variantsSchema],
+  ingredient: {
+    type: String,
   },
-  color:{
-    type:String
+  color: {
+    type: String,
   },
-  material:{
-    type:String
+  material: {
+    type: String,
   },
-  dimension:{
-    type:String
+  dimension: {
+    type: String,
   },
   createdat: {
     type: Date,
