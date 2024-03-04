@@ -15,7 +15,7 @@ const variantSchema = new mongoose.Schema({
   price: {
     type: Number,
   },
-  quantity: {
+  qty: {
     type: Number,
   },
   img: {
@@ -85,6 +85,9 @@ const itemSchema = new mongoose.Schema({
   },
   dimension: {
     type: String,
+  },
+  width:{
+    type:String
   },
   createdat: {
     type: Date,

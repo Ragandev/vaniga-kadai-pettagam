@@ -98,13 +98,13 @@ router.put("/:id", async (req, res) => {
 
     let invoice = {
       number: `${invoiceData.quotationnumberprefix}-${
-        invoiceData.quotationnumber + 1
+        invoiceData.quotationnumber
       }`,
       date: req.body.quote.date,
       terms: invoiceData.terms,
       sign: invoiceData.sign,
       name: `${invoiceData.quotationnumberprefix}-${
-        invoiceData.quotationnumber + 1
+        invoiceData.quotationnumber
       }-${dateNow}`,
     };
 
