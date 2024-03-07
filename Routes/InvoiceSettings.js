@@ -21,7 +21,7 @@ router.put("/:id", async (req, res) => {
     const invoiceSettingsId = req.params.id;
     const invoiceSettingsData = req.body;
 
-    const updatedPInvoiceSettings = await banner.findByIdAndUpdate(
+    const updatedPInvoiceSettings = await InvoiceSettings.findByIdAndUpdate(
       invoiceSettingsId,
       invoiceSettingsData,
       {
