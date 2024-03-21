@@ -8,6 +8,14 @@ const sizeSchema = new mongoose.Schema({
     type: Number,
   },
 });
+const colorSchema = new mongoose.Schema({
+  name: {
+    type: String,
+  },
+  code: {
+    type: String,
+  },
+});
 const variantSchema = new mongoose.Schema({
   color: {
     type: String,
@@ -30,7 +38,7 @@ const variantsSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ["color", "quantity"],
+    enum: ["color", "quantity", "capacity"],
     default: null,
   },
   variant: [variantSchema],
@@ -61,6 +69,9 @@ const itemSchema = new mongoose.Schema({
   metakey: {
     type: String,
   },
+  pagetitle:{
+    type: String,
+  },
   unit: {
     type: String,
     required: true,
@@ -77,9 +88,7 @@ const itemSchema = new mongoose.Schema({
   ingredient: {
     type: String,
   },
-  color: {
-    type: String,
-  },
+  color:colorSchema,
   material: {
     type: String,
   },

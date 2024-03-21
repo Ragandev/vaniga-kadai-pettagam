@@ -40,6 +40,11 @@ router.get("/:id", async (req, res) => {
 //! Add  User data
 router.post("/", async (req, res) => {
   try {
+    const {modelnumber} = req.body
+    const checkExists = await Items.findOne({modelnumber});
+    if (checkExists) {
+        return res.status(400).json({ message: "Modelnumber already exists" });
+    } 
     await Items.create(req.body);
     res.json({ message: "Item Created Successfully" });
   } catch (err) {
@@ -111,3 +116,4 @@ router.post(
 );
 
 module.exports = router;
+  

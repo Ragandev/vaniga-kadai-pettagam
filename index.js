@@ -31,6 +31,7 @@ const offerbanner = require("./Routes/Offerbanner");
 const quotationRoute = require("./Routes/Quotation");
 const purchaseRoute = require("./Routes/purchase");
 const invoiceSettingRoute = require("./Routes/InvoiceSettings");
+const vendor = require("./Routes/Vendor");
 
 
 
@@ -69,6 +70,7 @@ app.use("/api/offerbanner", offerbanner);
 app.use("/api/quotation", quotationRoute);
 app.use("/api/purchase", purchaseRoute);
 app.use("/api/invoicesettings", invoiceSettingRoute);
+app.use("/api/vendor", vendor);
 
 
 app.get("/", (req, res) => {
