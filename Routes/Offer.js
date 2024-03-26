@@ -110,7 +110,7 @@ router.put("/:id", async (req, res) => {
     }
 
     if (checkExists) {
-      return res.status(400).json({ message: "Alerady Exists" });
+      return res.status(400).json({ message: "Already Exists" });
     }
 
     const updatedOffer = await Offer.findByIdAndUpdate(offerId, offerData, {

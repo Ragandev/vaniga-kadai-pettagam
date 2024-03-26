@@ -9,7 +9,9 @@ const errMessage = "Something went wrong please try again later";
 //! Get All User Data
 router.get("/", async (req, res) => {
   try {
-    const data = await Categories.find();
+    const data = await Categories.find().populate([
+     "parent",
+    ]);;
     res.status(200).json(data);
   } catch (err) {
     console.log(err.message);

@@ -35,7 +35,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //! Add  User data
-router.post("/",Auth, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     await Brands.create(req.body);
     res.json({ message: "Brand Created Successfully" });

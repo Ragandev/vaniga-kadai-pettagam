@@ -8,7 +8,7 @@ const categoriesSchema = new mongoose.Schema({
   },
   parent: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "category",
+    ref: "categories",
   },
   status: {
     type: Boolean,
